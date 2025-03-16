@@ -3,15 +3,10 @@ import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
 import { SquareArrowOutUpRight } from 'lucide-react'
 
-import { Posts } from '../../../../server/types'
-
 import { redirect } from 'next/navigation'
+import type { Posts } from '../types'
 
-interface ActionCellType {
-    post: Posts
-}
-
-const ActionsCell = ({ post }: ActionCellType) => {
+const ActionsCell = (post: Posts) => {
     return (
         <div className="space-between flex space-x-1">
             <Button
@@ -45,15 +40,15 @@ export const columns: ColumnDef<Posts>[] = [
     {
         accessorKey: 'author',
         header: 'Autor',
-        cell: ({ row }) => (
-            <div className="lowercase">{row.original.authorId}</div> // precisa pegar o nome do author.
-        ),
+        cell: ({ row }) => {
+            return <div>{row.original.author.name}</div>
+        },
     },
     {
-        accessorKey: 'Ações',
+        accessorKey: 'actions',
         header: '',
         cell: ({ row: { original: post } }) => {
-            return <ActionsCell post={post} />
+            return <ActionsCell {...post} />
         },
     },
 ]

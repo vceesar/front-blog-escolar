@@ -25,8 +25,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { columns } from './columns'
-
-import { Posts } from '../../../../server/types'
+import type { Posts } from '../types'
 
 interface DataTableProps {
     data: Posts[]
@@ -133,7 +132,8 @@ export function DataTable({ data }: DataTableProps) {
             <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="text-muted-foreground flex-1 text-sm">
                     {table.getFilteredSelectedRowModel().rows.length} de{' '}
-                    {table.getFilteredRowModel().rows.length} linha(s) selecionada(s).
+                    {table.getFilteredRowModel().rows.length} linha(s)
+                    selecionada(s).
                 </div>
                 <div className="space-x-2">
                     <Button
