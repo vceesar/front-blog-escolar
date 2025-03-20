@@ -2,44 +2,31 @@
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import type { Posts } from '../../../../../server/types'
 import { Button } from '@/components/ui/button'
 
 import { useRouter } from 'next/navigation'
+import type { Posts } from '../../types'
+import { DialogCreatePost } from '../../_components/DialogCreatePost'
 
-interface PostInfoProps {
-    post: {
-        id: string
-        title: string
-        content: string
-        createdAt: string
-        updatedAt: string
-        active: boolean
-        authorId: string
-        author: {
-            id: string
-            name: string
-            email: string
-            isAdmin: boolean
-            createdAt: string
-            updatedAt: string
-        }
-    }
-}
+import { DeleteButton } from './DeleteButton'
 
-export function PostInfo({ post }: PostInfoProps) {
+export function PostInfo(post: Posts) {
     const router = useRouter()
     return (
         <Card className="mt-10 mr-auto ml-auto flex w-[50%]">
             <CardHeader>
-                <CardTitle>
-                    ID do Post:{' '}
-                    <span className="font-bold text-indigo-100">{post.id}</span>
+                <CardTitle className="flex flex-row justify-between">
+                    <div>
+                        ID do Post:{' '}
+                        <span className="font-bold text-indigo-100">
+                            {post.id}
+                        </span>
+                    </div>
+                    <Button onClick={() => router.push('/blog')}>Voltar</Button>
                 </CardTitle>
             </CardHeader>
             <CardContent>
@@ -84,8 +71,12 @@ export function PostInfo({ post }: PostInfoProps) {
                     )}
                 </div>
             </CardContent>
-            <CardFooter>
-                <Button onClick={() => router.push('/blog')}>Voltar</Button>
+            <CardFooter className="flex justify-between">
+                <DialogCreatePost defaultValues={post}>
+                    <Button variant="secondary">Editar</Button>
+                </DialogCreatePost>
+
+                <DeleteButton id={post.id} />
             </CardFooter>
         </Card>
     )

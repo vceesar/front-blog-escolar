@@ -16,8 +16,8 @@ import { useSession } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
-import { formSchemaCreatePost } from '../types'
-import { createPost } from '../_actions/getPosts'
+import { formSchemaUpsertPost, type Posts } from '../types'
+import { upsertPost } from '../_actions/getPosts'
 import {
     Form,
     FormControl,
@@ -31,13 +31,18 @@ import { Input } from '@/components/ui/input'
 
 interface DialogCreatePost {
     children: React.ReactNode
+    defaultValues?: Posts
 }
-export function DialogCreatePost({ children }: DialogCreatePost) {
+export function DialogCreatePost({
+    children,
+    defaultValues,
+}: DialogCreatePost) {
     const [isOpen, setIsOpen] = useState(false)
+
     const session = useSession()
-    const form = useForm<z.infer<typeof formSchemaCreatePost>>({
-        resolver: zodResolver(formSchemaCreatePost),
-        defaultValues: {
+    const form = useForm<z.infer<typeof formSchemaUpsertPost>>({
+        resolver: zodResolver(formSchemaUpsertPost),
+        defaultValues: defaultValues || {
             title: '',
             content: '',
             authorName: session.data?.user?.name as string,
@@ -46,7 +51,8 @@ export function DialogCreatePost({ children }: DialogCreatePost) {
 
     const handleSubmit = form.handleSubmit(async (data) => {
         try {
-            await createPost({
+            await upsertPost({
+                id: data.id,
                 title: data.title,
                 content: data.content,
             })
@@ -61,11 +67,17 @@ export function DialogCreatePost({ children }: DialogCreatePost) {
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Deseja criar uma nova postagem ?</DialogTitle>
+                    <DialogTitle>
+                        {defaultValues?.id
+                            ? 'Editar postagem'
+                            : 'Deseja criar uma nova postagem ?'}
+                    </DialogTitle>
                     <DialogDescription>
-                        Crie uma nova postagem para compartilhar suas ideias e
+                        {defaultValues?.id
+                            ? 'Atualize o titulo ou o conteudo da postagem'
+                            : `Crie uma nova postagem para compartilhar suas ideias e
                         experiências com a comunidade. Preencha os campos abaixo
-                        com as informações necessárias.
+                        com as informações necessárias.`}
                     </DialogDescription>
 
                     <div className="mt-5">
@@ -119,12 +131,16 @@ export function DialogCreatePost({ children }: DialogCreatePost) {
                                             <FormLabel>Criado por: </FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    placeholder={
-                                                        session.data?.user
-                                                            ?.name as string
-                                                    }
                                                     disabled
                                                     {...field}
+                                                    value={
+                                                        defaultValues?.id
+                                                            ? defaultValues
+                                                                  ?.author.name
+                                                            : (session.data
+                                                                  ?.user
+                                                                  ?.name as string)
+                                                    }
                                                 />
                                             </FormControl>
 
@@ -141,7 +157,9 @@ export function DialogCreatePost({ children }: DialogCreatePost) {
                                                 setIsOpen(false)
                                             }}
                                         >
-                                            Enviar
+                                            {defaultValues?.id
+                                                ? 'Atualizar'
+                                                : 'Enviar'}
                                         </Button>
                                         <DialogClose asChild>
                                             <Button variant="secondary">

@@ -5,17 +5,15 @@ import { Button } from '@/components/ui/button'
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { LogOut, Settings } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import type { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 
 type UserDropdownProps = {
     user: Session['user']
@@ -24,7 +22,6 @@ type UserDropdownProps = {
 export function UserDropdown({ user }: UserDropdownProps) {
     if (!user) return
 
-    const router = useRouter()
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -61,15 +58,6 @@ export function UserDropdown({ user }: UserDropdownProps) {
                         </p>
                     </div>
                 </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                    <DropdownMenuItem
-                        onClick={() => router.push('/app/settings')}
-                    >
-                        <Settings className="mr-3 h-3 w-3" />
-                        Configurações
-                    </DropdownMenuItem>
-                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={async () => await signOut()}>
                     <LogOut className="mr-3 h-3 w-3" />

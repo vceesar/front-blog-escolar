@@ -37,7 +37,11 @@ const formSchema = z.object({
     }),
 })
 
-export function AuthForm() {
+interface AuthFormProps {
+    setCookieFunction: () => Promise<void>
+}
+
+export function AuthForm({ setCookieFunction }: AuthFormProps) {
     const router = useRouter()
 
     const [isLoading, setIsLoading] = useState(false)
@@ -83,7 +87,8 @@ export function AuthForm() {
             <CardHeader className="text-center">
                 <CardTitle className="text-2xl font-bold">Login</CardTitle>
                 <CardDescription className="mt-2">
-                    Digite suas credenciais para fazer o login no{' '}
+                    É um docente ou professor ? Digite suas credenciais para
+                    fazer o login no{' '}
                     <span className="text-zinc-100">Blog Escolar Fiap</span>
                 </CardDescription>
             </CardHeader>
@@ -142,15 +147,29 @@ export function AuthForm() {
                 </Form>
             </CardContent>
             <CardFooter className="flex justify-center">
-                <p className="text-muted-foreground text-sm">
-                    Não possui uma conta?{' '}
-                    <Link
-                        href="/auth/signup"
-                        className="text-primary hover:underline"
-                    >
-                        Registre-se
-                    </Link>
-                </p>
+                <div className="flex flex-row justify-between">
+                    <p className="text-muted-foreground text-sm">
+                        Não possui uma conta?{' '}
+                        <Link
+                            href="/auth/signup"
+                            className="text-primary hover:underline"
+                        >
+                            Registre-se
+                        </Link>
+                    </p>
+
+                    <p className="text-muted-foreground text-sm">
+                        É um aluno? Clique abaixo para ir a plataforma e ter
+                        acesso as postagens
+                        <Link
+                            href="/blog"
+                            className="text-primary hover:underline"
+                            onClick={setCookieFunction}
+                        >
+                            Acessar plataforma
+                        </Link>
+                    </p>
+                </div>
             </CardFooter>
         </Card>
     )
