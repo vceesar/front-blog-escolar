@@ -14,28 +14,28 @@ import { DialogCreatePost } from '../../_components/DialogCreatePost'
 
 import { DeleteButton } from './DeleteButton'
 
-export function PostInfo(post: Posts) {
+interface PostInfoProps {
+    post: Posts
+    isAdmin: boolean
+}
+
+export function PostInfo({ isAdmin, post }: PostInfoProps) {
     const router = useRouter()
+    console.log(post)
+
     return (
         <Card className="mt-10 mr-auto ml-auto flex w-[50%]">
             <CardHeader>
                 <CardTitle className="flex flex-row justify-between">
-                    <div>
-                        ID do Post:{' '}
-                        <span className="font-bold text-indigo-100">
-                            {post.id}
-                        </span>
+                <div>
+                        <h2 className="text-lg font-semibold">Título</h2>
+                        <p className="text-indigo-500">{post.title}</p>
                     </div>
                     <Button onClick={() => router.push('/blog')}>Voltar</Button>
                 </CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="space-y-6">
-                    <div>
-                        <h2 className="text-lg font-semibold">Título</h2>
-                        <p className="text-indigo-500">{post.title}</p>
-                    </div>
-
                     <div>
                         <h2 className="text-lg font-semibold">Conteúdo</h2>
                         <p className="text-indigo-500">{post.content}</p>
@@ -73,10 +73,12 @@ export function PostInfo(post: Posts) {
             </CardContent>
             <CardFooter className="flex justify-between">
                 <DialogCreatePost defaultValues={post}>
-                    <Button variant="secondary">Editar</Button>
+                    <Button variant="secondary" disabled={!isAdmin}>
+                        Editar
+                    </Button>
                 </DialogCreatePost>
 
-                <DeleteButton id={post.id} />
+                <DeleteButton id={post.id} isAdmin={isAdmin} />
             </CardFooter>
         </Card>
     )

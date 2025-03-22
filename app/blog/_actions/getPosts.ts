@@ -38,11 +38,11 @@ export async function getPosts() {
 }
 
 export async function getPostById(id: string) {
-    const session = await auth()
+    // const session = await auth()
 
-    if (!session?.user?.id) {
-        throw Error('Unauthenticated')
-    }
+    // if (!session?.user?.id) {
+    //     throw Error('Unauthenticated')
+    // }
 
     if (!process.env.BACKEND_URL) {
         throw Error('No back-end url defined')

@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation'
 
 interface DeleteButtonProps {
     id: string
+    isAdmin: boolean
 }
 
-export function DeleteButton({ id }: DeleteButtonProps) {
+export function DeleteButton({ id, isAdmin }: DeleteButtonProps) {
     const router = useRouter()
     const handleDelete = async () => {
         try {
@@ -22,5 +23,5 @@ export function DeleteButton({ id }: DeleteButtonProps) {
             router.push('/blog')
         }
     }
-    return <Button onClick={handleDelete}>Apagar</Button>
+    return <Button onClick={handleDelete} disabled={!isAdmin}>Apagar</Button>
 }

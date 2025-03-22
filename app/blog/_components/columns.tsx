@@ -34,7 +34,7 @@ export const columns: ColumnDef<Posts>[] = [
         accessorKey: 'content',
         header: 'Conteudo',
         cell: ({ row }) => (
-            <div className="lowercase">{row.original.content}</div>
+            <div className="lowercase">{(row.original.content).slice(0, 20)}...</div>
         ),
     },
     {

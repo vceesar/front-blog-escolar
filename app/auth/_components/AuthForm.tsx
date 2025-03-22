@@ -89,7 +89,9 @@ export function AuthForm({ setCookieFunction }: AuthFormProps) {
                 <CardDescription className="mt-2">
                     É um docente ou professor ? Digite suas credenciais para
                     fazer o login no{' '}
-                    <span className="text-zinc-100">Blog Escolar Fiap</span>
+                    <span className="in-dark:text-zinc-100 font-bold text-gray-800">
+                        Blog Escolar Fiap
+                    </span>
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -146,29 +148,29 @@ export function AuthForm({ setCookieFunction }: AuthFormProps) {
                     </form>
                 </Form>
             </CardContent>
-            <CardFooter className="flex justify-center">
-                <div className="flex flex-row justify-between">
-                    <p className="text-muted-foreground text-sm">
-                        Não possui uma conta?{' '}
-                        <Link
-                            href="/auth/signup"
-                            className="text-primary hover:underline"
-                        >
-                            Registre-se
-                        </Link>
-                    </p>
+            <CardFooter className="flex w-full flex-col space-y-5">
+                <div className="text-muted-foreground text-sm">
+                    Não possui uma conta?{' '}
+                    <Link
+                        href="/auth/signup"
+                        className="text-primary hover:underline"
+                    >
+                        Registre-se
+                    </Link>
+                </div>
 
-                    <p className="text-muted-foreground text-sm">
+                <div className="text-muted-foreground flex flex-col items-center text-sm">
+                    <p>
                         É um aluno? Clique abaixo para ir a plataforma e ter
                         acesso as postagens
-                        <Link
-                            href="/blog"
-                            className="text-primary hover:underline"
-                            onClick={setCookieFunction}
-                        >
-                            Acessar plataforma
-                        </Link>
                     </p>
+                    <Link
+                        href="/blog"
+                        className="text-primary hover:underline"
+                        onClick={setCookieFunction}
+                    >
+                        Acessar plataforma
+                    </Link>
                 </div>
             </CardFooter>
         </Card>

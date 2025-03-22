@@ -1,34 +1,43 @@
 import { auth } from '@/services/auth/auth'
-
+import { cookies } from 'next/headers'
 export async function getUserById(id: string) {
     const session = await auth()
+    const cookiesStore = await cookies()
 
-    if (!session?.user?.id) {
-        throw Error('Unauthenticated')
-    }
-
-    if (!process.env.BACKEND_URL) {
-        throw Error('No back-end url defined')
-    }
-
-    try {
-        const response = await fetch(`${process.env.BACKEND_URL}/user/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-
-        if (!response.ok) {
-            throw Error('Error while fetching response')
+    const isStudent = cookiesStore.get('is-student')
+    if (isStudent) {
+        return undefined
+    } else {
+        if (!session?.user?.id) {
+            throw Error('Unauthenticated')
         }
 
-        return await response.json()
-    } catch (error) {
-        const message =
-            error instanceof Error
-                ? error.message
-                : 'Something wrong happened while fetching user data'
-        throw Error(message)
+        if (!process.env.BACKEND_URL) {
+            throw Error('No back-end url defined')
+        }
+
+        try {
+            const response = await fetch(
+                `${process.env.BACKEND_URL}/user/${id}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+
+            if (!response.ok) {
+                throw Error('Error while fetching response')
+            }
+
+            return await response.json()
+        } catch (error) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : 'Something wrong happened while fetching user data'
+            throw Error(message)
+        }
     }
 }

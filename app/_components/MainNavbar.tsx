@@ -10,6 +10,7 @@ import { auth } from '@/services/auth/auth'
 
 export async function MainNavbar() {
     const session = await auth()
+
     return (
         <Navbar>
             <NavbarMain>
