@@ -19,6 +19,7 @@ Este projeto consome a API REST desenvolvida na etapa anterior do projeto, integ
 - Zod
 
 ## 📁 Estrutura do Projeto
+```
 blog-escolar/
 ├── app/
 │ ├── (auth)/ # Rotas autenticadas
@@ -31,7 +32,7 @@ blog-escolar/
 ├── prisma/ # Configurações do Prisma
 ├── public/ # Arquivos estáticos
 └── services/ # Serviços (auth, api, etc)
-
+```
 
 
 ## 🔧 Configuração e Instalação
@@ -75,14 +76,12 @@ yarn dev
 - 👥 Sistema de autenticação de usuários
 - 🔍 Busca de posts
 - 👨‍💼 Painel administrativo
-- 💬 Sistema de comentários
 - 📱 Design responsivo
 
 ## 🔗 Links Importantes
 
 - [Frontend Deployed](https://front-blog-escolar.vercel.app/)
-- [Documentação da API](link-para-documentacao)
-- [Backend Repository](link-para-backend)
+- [Backend Repository](https://github.com/AugustoCVS/blog-escolar)
 
 
 ## 📄 Licença
