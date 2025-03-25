@@ -1,6 +1,5 @@
 # Blog Escolar - Frontend
 
-![Blog Escolar](https://front-blog-escolar.vercel.app/og-image.jpg)
 
 ## 📝 Sobre o Projeto
 
@@ -69,6 +68,19 @@ npm run dev
 # ou
 yarn dev
 ```
+
+## 👤 Usuário para Teste
+
+Para testar a aplicação sem necessidade de criar uma nova conta, utilize as seguintes credenciais:
+
+```bash
+Email: profvictor@g.com
+Senha: 123456789
+```
+
+Este é um usuário de teste com acesso às funcionalidades básicas da plataforma (docente/professor). Sinta-se à vontade para explorar o sistema usando estas credenciais.
+
+**Observação**: Este é um usuário compartilhado para fins de demonstração. Em ambiente de produção, recomenda-se criar sua própria conta.
 
 ## 🌟 Funcionalidades Principais
 
