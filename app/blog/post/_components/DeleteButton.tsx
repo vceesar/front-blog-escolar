@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { deletePost } from '../../_actions/getPosts'
-import type { Posts } from '../../types'
 import { useRouter } from 'next/navigation'
 
 interface DeleteButtonProps {
@@ -23,5 +22,9 @@ export function DeleteButton({ id, isAdmin }: DeleteButtonProps) {
             router.push('/blog')
         }
     }
-    return <Button onClick={handleDelete} disabled={!isAdmin}>Apagar</Button>
+    return (
+        <Button onClick={handleDelete} disabled={!isAdmin}>
+            Apagar
+        </Button>
+    )
 }

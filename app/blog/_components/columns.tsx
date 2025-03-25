@@ -1,23 +1,19 @@
-import { Button } from '@/components/ui/button'
-
 import { ColumnDef } from '@tanstack/react-table'
 import { SquareArrowOutUpRight } from 'lucide-react'
 
-import { redirect } from 'next/navigation'
 import type { Posts } from '../types'
+import Link from 'next/link'
 
 const ActionsCell = (post: Posts) => {
     return (
         <div className="space-between flex space-x-1">
-            <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => {
-                    redirect(`/blog/post/${post.id}`)
+            <Link
+                href={{
+                    pathname: `/blog/post/${post.id}`,
                 }}
             >
                 <SquareArrowOutUpRight />
-            </Button>
+            </Link>
         </div>
     )
 }
@@ -34,7 +30,9 @@ export const columns: ColumnDef<Posts>[] = [
         accessorKey: 'content',
         header: 'Conteudo',
         cell: ({ row }) => (
-            <div className="lowercase">{(row.original.content).slice(0, 20)}...</div>
+            <div className="lowercase">
+                {row.original.content.slice(0, 20)}...
+            </div>
         ),
     },
     {

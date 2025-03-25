@@ -4,15 +4,14 @@ import { getUserById } from '../../_actions/getUser'
 import { PostInfo } from '../_components/PostInfo'
 import { auth } from '@/services/auth/auth'
 
-interface PageParams {
-    params: {
-        id: string
-    }
+interface PageProps {
+    params: Promise<{ id: string }>
 }
 
-export default async function Page({ params }: PageParams) {
+export default async function Page({ params }: PageProps) {
     const session = await auth()
     const { id } = await params
+
     const post = await getPostById(id)
 
     const user: User | undefined = await getUserById(

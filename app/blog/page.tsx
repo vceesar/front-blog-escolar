@@ -7,7 +7,6 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { getUserById } from './_actions/getUser'
 import { auth } from '@/services/auth/auth'
 import type { User } from '@prisma/client'
-import type { Metadata } from 'next'
 
 export default async function Home() {
     const session = await auth()
