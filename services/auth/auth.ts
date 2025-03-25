@@ -10,11 +10,11 @@ import { prisma } from '../database'
 const adapter = PrismaAdapter(prisma)
 export const { handlers, signIn, signOut, auth } = NextAuth({
     pages: {
-        signIn: '/',
+        signIn: '/blog',
         signOut: '/auth',
         error: '/auth',
         verifyRequest: '/auth',
-        newUser: '/',
+        newUser: '/blog',
     },
     secret: process.env.NEXTAUTH_SECRET,
     adapter,
